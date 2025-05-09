@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-family:'poppins',sans-serif;
+        }
+        body{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background:black;
+        }
+        .wrapper{
+            position:relative;
+            width:750px;
+            height: 450px;
+            background:transparent;
+            border:2px solid #0af;
+            box-shadow: 10px 10px 50px #0af;
+            overflow:hidden;
+        }
+        .wrapper .form-box{
+            position:absolute;
+            top:0;
+            width:50%;
+            height:100%;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .wrapper .info{
+            position:absolute;
+            top:0;
+            width: 50%;
+            color:#0af;
+            height:100%;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .wrapper .form-box.reg{
+            right:-20px;
+            padding:0 60px 40px;
+        }
+        .wrapper .big-animate1{
+            position:absolute;
+            top:0px;
+            left: -17em;
+            width:120%;
+            height:150%;
+            background: linear-gradient(4deg,black,#0ef);
+            transform: rotate(-0deg) skew(-50deg);
+            transform-origin: bottom right;
+        }
+        .info h2{
+            font-size: 25px;
+            color:rgb(15, 44, 231);
+            line-height:1.3;
+            font-family:Algerian;
+        }
+        .info p{
+            font-size:medium;
+            color:aquamarine;
+            font-family:Matura MT Script Capitals;
+        }
+        .wrapper .info.reg{
+           left:0%;
+           text-align:left;
+           padding:0 150px 60px 40px;
+        }
+        .form-box h2{
+            font-size: 32px;
+            color:#0af;
+            text-align: center;
+        }
+        .form-box .input-box{
+            position:relative;
+            width: 100%;
+            height:50px;
+            background:transparent;
+            margin: 25px 0;
+        }
+        .input-box input{
+            width:100%;
+            height:100%;
+            background:transparent;
+            border:none;
+            outline:none;
+            border-bottom: 2px solid white;
+        } 
+        .input-box label{
+            position: absolute;
+            top:50%;
+            left:0%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color:rgb(234, 68, 8);
+            pointer-events: none;
+            transition:0.5s;
+            cursor:pointer;
+        }
+        .input-box input:focus~label,.input-box input:valid~label{
+            top:-5px;
+            color:aliceblue
+        }
+        .input-box i{
+            position: absolute;
+            top:50%;
+            right:-10%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color:rgb(205, 13, 13)
+        }
+        .btn{
+            position: relative;
+            width:100%;
+            height:45px;
+            background:transparent;
+            border: 2px solid #0ef;
+            outline-color: none;;
+            border-radius: 40px;
+            cursor:pointer;
+            font-size: small;
+            color:black;
+            font-weight: 800;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:300%;
+            background: linear-gradient(black,#0ef,black,#0ef);
+            z-index: -1;
+            transition:0.5s;
+        }
+        .btn:hover::before{
+            top:-100%;
+            left:0%;
+        }
+        .form-box .logreg-link{
+            font-size: 20px;
+            color:wheat;
+            text-align: center;
+        }
+        .log-link p a{
+            color:rgb(93, 160, 214);
+            text-decoration: none;
+            font-weight: 800;
+        }
+        .log-link p a:hover{
+            text-decoration:underline dotted;
+        }
+        .reg-link p a{
+            color:rgb(93, 160, 214);
+            text-decoration: none;
+            font-weight: 800;
+        }
+        .reg-link p a:hover{
+            text-decoration:underline dotted;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <span class="big-animate1"></span>
+        <div class="form-box reg">
+            <h2>sign up</h2>
+            <form  id="myform2" action="" method="get">
+                <div class="input-box">
+                    <input type="text" id="username" autocomplete="off" required>
+                    <label>username</label>
+                    <i class='bx bxs-user-circle'></i>
+                </div> <div class="input-box">
+                    <input type="text" id="email" autocomplete="off" required>
+                    <label>E-mail</label>
+                    <i class='bx bx-envelope' ></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" autocomplete="off" required> 
+                    <label>password</label>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <button type="submit" class="btn">signup</button>
+                <div class="reg-link">
+                    <p>Already have an account?<a href="signup.html" class="register-link" target="">Login</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="info reg">
+            <h2>welcome to MAR TRANSPORT</h2>
+            <p>hi how are u doing?</p>
+            <p>explore the world...</p>
+        </div>
+    </div>
+</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("myform2");
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const registerLink = document.querySelector(".register-link");
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent default submission
+
+        let username = usernameInput.value.trim();
+        let email = emailInput.value.trim();
+        let password = passwordInput.value.trim();
+        let valid = true;
+
+        // Username validation
+        if (username.length < 3) {
+            alert("Username must be at least 3 characters long.");
+            valid = false;
+        }
+
+        // Email validation (basic regex pattern)
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email address.");
+            valid = false;
+        }
+
+        // Password validation (at least 8 characters, including letters and numbers)
+        let passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordPattern.test(password)) {
+            alert("Password must be at least 8 characters long and contain both letters and numbers.");
+            valid = false;
+        }
+
+        if (!valid) return; // Stop execution if validation fails
+
+        // Send data to backend (Node.js Express)
+        try {
+            const response = await fetch("http://localhost:500/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Registration successful!");
+                window.location.href = "signup.html"; // Redirect on success
+            } else {
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Something went wrong. Please try again.");
+        }
+    });
+    
+});
+
+</script>
+</html>

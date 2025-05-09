@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car & Bus Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c2c2c;
+            padding: 15px 30px;
+            font-size: 22px;
+            font-weight: bold;
+            color: aqua;
+        }
+
+        .btn1 {
+            width: 100px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid #0ef;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 14px;
+            color: aqua;
+            font-weight: 800;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300%;
+            background: linear-gradient(black, #0ef, black, #0ef);
+            z-index: -1;
+            transition: 0.5s;
+        }
+
+        .btn1:hover::before {
+            top: -100%;
+        }
+
+        /* Page Title */
+        h1 {
+            text-align: center;
+            color: aqua;
+            font-size: 28px;
+            margin-top: 20px;
+        }
+
+        /* Form Container */
+        .tour {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+        }
+
+        .search {
+            background-color: #2c2c2c;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px aqua;
+            width: 320px;
+        }
+
+        label {
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #3b3b3b;
+            color: aqua;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: aqua;
+        }
+
+        /* Search Button */
+        .btn {
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            border: 2px solid #0ef;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            color: aqua;
+            font-weight: 800;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300%;
+            background: linear-gradient(black, #0ef, black, #0ef);
+            z-index: -1;
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            top: -100%;
+        }
+
+        /* Bus Availability Section */
+        .bus-list {
+            width: 70%;
+            margin: 20px auto;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2c2c2c;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #555;
+        }
+
+        th {
+            background-color: aqua;
+            color: black;
+        }
+
+        tr:hover {
+            background-color: #3b3b3b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <p>🚌 Buses</p>
+        <input type="button" value="Back" class="btn1" onclick="goToHome()">
+    </header>
+
+    <!-- Page Title -->
+    <h1>Find Your Ride</h1>
+
+    <!-- Form Section -->
+    <div class="tour">
+        <form class="search" method="post" onsubmit="findBuses(event)">
+            <label>Starting Place:</label>
+            <input type="text" id="fromPlace" placeholder="Enter starting location" required>
+
+            <label>Ending Place:</label>
+            <input type="text" id="toPlace" placeholder="Enter destination" required>
+
+            <label>Date:</label>
+            <input type="date" id="travelDate" required>
+
+            <input type="submit" class="btn" value="Search Buses">
+        </form>
+    </div>
+    <div class="bus-list" id="busList">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bus Name</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    <th>Fare</th>
+                </tr>
+            </thead>
+            <tbody id="busResults">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function goToHome() {
+    window.location.href = "loginpage.html"; // Change "index.html" to your actual home page URL
+}
+
+        function findBuses(event) {
+            event.preventDefault(); // Prevent form from refreshing page
+
+            let from = document.getElementById("fromPlace").value;
+            let to = document.getElementById("toPlace").value;
+            let date = document.getElementById("travelDate").value;
+            
+            if (!from || !to || !date) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            let busData = [
+                { name: "Express Bus", departure: "08:00 AM", arrival: "11:00 AM", fare: "₹450" },
+                { name: "Super Deluxe", departure: "10:00 AM", arrival: "02:00 PM", fare: "₹600" },
+                { name: "Night Rider", departure: "09:00 PM", arrival: "05:00 AM", fare: "₹750" }
+            ];
+
+            let tableBody = document.getElementById("busResults");
+            tableBody.innerHTML = "";
+
+            busData.forEach(bus => {
+                let row = `<tr>
+                                <td>${bus.name}</td>
+                                <td>${bus.departure}</td>
+                                <td>${bus.arrival}</td>
+                                <td>${bus.fare}</td>
+                           </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            document.getElementById("busList").style.display = "block"; // Show results
+        }
+    </script>
+
+</body>
+</html>

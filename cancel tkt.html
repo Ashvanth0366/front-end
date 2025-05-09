@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-family:'poppins',san-serif;
+        }
+        body{
+            background:black;
+        }
+        header{
+            top:0px;
+            left:0px;
+            width:100%;
+            padding:30px 8%;
+            background: transparent;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            z-index:100;
+        }
+       .logo{
+        font-size: 25px;
+        color:#0ef;
+        text-decoration: none;
+        font-weight: 600;
+       } 
+       .navbar a{
+               display:inline-flex;
+               justify-content: center;
+               align-items: center;
+               background:black;
+               border:3px solid white;
+               width:75px;
+               border-radius: 4px;
+               color:#0ef;
+               text-decoration: none;
+               font-weight: 500;
+               margin:0 20px;
+               box-shadow:1px 1px 10px #0ef;
+       }
+       .navbar a:hover{
+        color:burlywood;
+        border:3px solid #0ef;
+        border-radius: 4px;;
+       }
+       .social{
+        width:150px;
+        height:40px;
+       }
+       .social a{
+        display:inline-flex;
+        justify-content: center;
+        align-items: center;
+        width:45px;
+        height: 40px;
+        background:transparent;
+        border:2px solid whitesmoke;
+        border-radius: 5px;
+        text-decoration: none;
+        transform: rotate(45deg);
+        border:transparent;
+       }
+       .social a i{
+        font-size:larger;
+        color:aqua;
+        transform: rotate(-45deg);
+       }
+       .social a:hover{
+        border:2px solid white;
+       }
+       .home{
+        position:relative;
+        width:100%;
+        height:100vh;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:50px 8% 0;
+        overflow:hidden;
+       }
+       .home-content {
+            background-color: #2c2c2c;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px aqua;
+            width: 320px;
+        }
+
+       label {
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+            color:#0ef;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #3b3b3b;
+            color: aqua;
+            font-size: 16px;
+        }
+       .btn{
+        display:inline-block;
+        padding:10px 28px;
+        background:transparent;
+        border:2px solid white;
+        border-radius: 6px;
+        box-shadow: 0 0 10px;
+        font-size:16px;
+        color:aliceblue;
+        letter-spacing: 1px;
+        text-decoration: none;
+        font-weight: 600;
+        transition:0.5s;
+       }
+       .btn:hover{
+        background:burlywood;
+        color:#0ef
+       }
+       .home-img{
+        position:relative;
+        right:-150px;
+        width:450px;
+        height:450px;
+        transform:rotate(45deg)
+       }
+       .home-img .rhombus{
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:black;
+        border: 25px solid #0ef;
+        overflow:hidden
+       }
+       .home-img .rhombus img{
+        position:absolute;
+        max-width: 500px;
+        transform:rotate(-45deg);
+       }
+       .home .rhombus2{
+        position:absolute;
+        width:700px;
+        height:700px;
+        background: #0ef;
+        transform:rotate(45deg);
+        top:-30%;
+        right:-30%;
+        z-index: -1;
+
+       }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Cars</a>
+        <nav class="navbar">
+               <a href="navbar.html">Home</a>
+               <a href="search bus.html">search</a>
+               <a href="#">cancel tkt</a>
+               <a href="book tkt.html">book tkt</a>
+               <a href="contact.html">Contact</a>
+               <a href="loginpage.html">log out</a>
+               <a href="javascript:window.history.back()">← Back</a>
+        </nav>
+        <div class="social">
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-facebook' ></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+        </div>
+    </header>
+    <section class="home">
+        <div class="home-content">
+            <form id="cancelForm">
+                <label for="busid">Bus id</label>
+                <input type="text" id="busid" name="busid" required>
+
+                <label for="seatno">seat no</label>
+                <input type="text" id="seatno" name="seatno" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                 
+                <label for="date">Date booked</label>
+                <input type="date" id="date" name="date" required>
+                
+                <label for="reason">Reason for Cancellation:</label>
+                <input type="text" id="reason" name="reason" required>
+                
+                <button class="btn" type="submit">Cancel tkt</button>
+            </form>
+        </div>
+        <div class="home-img">
+            <div class="rhombus">
+                <img src="bus.jpg" alt="bus">
+            </div>
+        </div>
+        <div class="rhombus2"></div>
+        <p id="result" style="color: green; font-weight: bold;"></p>
+
+    </section>
+    <script>
+        document.getElementById("cancelForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+        
+            const busId = document.getElementById("busid").value;
+            const seatNumber = document.getElementById("seatno").value;
+            const email = document.getElementById("email").value;
+            const date = document.getElementById("date").value;
+            const reason = document.getElementById("reason").value;
+        
+            try {
+                const res = await fetch("http://localhost:500/cancel-seat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        busId: busId,
+                        seatNo: seatNumber,
+                        date: date,
+                        email: email,
+                        reason: reason
+                    })
+                });
+        
+                const result = await res.json();
+        
+                const resultElement = document.getElementById("result");
+        
+                if (res.ok) {
+                    alert(result.message);
+                } else {
+                    alert(result.message);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        });
+        </script>
+        
+</body>
+</html>

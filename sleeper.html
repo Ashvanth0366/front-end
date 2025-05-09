@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Layout</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        #seat-layout {
+            margin-left: 35%;
+    display: inline-block;
+    padding: 20px;
+    background-color: black;
+    border-radius: 15px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.booked {
+    background-color: red !important;
+    pointer-events: none;
+}
+
+.selected {
+    background-color: orange;
+}
+
+.aisle-gap {
+    width: 60px; /* width of aisle */
+}
+</style>
+     <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-family:'poppins',san-serif;
+        }
+        body{
+            background:black;
+        }
+        h1{
+            color:#0ef;
+            margin-left: 40%;
+        }
+        header{
+            top:0px;
+            left:0px;
+            width:100%;
+            padding:30px 8%;
+            background: transparent;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            z-index:100;
+        }
+       .logo{
+        font-size: 25px;
+        color:#0ef;
+        text-decoration: none;
+        font-weight: 600;
+       } 
+       .navbar a{
+               display:inline-flex;
+               justify-content: center;
+               align-items: center;
+               background:black;
+               border:3px solid white;
+               width:75px;
+               border-radius: 4px;
+               color:#0ef;
+               text-decoration: none;
+               font-weight: 500;
+               margin:0 20px;
+               box-shadow:1px 1px 10px #0ef;
+       }
+       .navbar a:hover{
+        color:burlywood;
+        border:3px solid #0ef;
+        border-radius: 4px;;
+       }
+       .social{
+        width:150px;
+        height:40px;
+       }
+       .social a{
+        display:inline-flex;
+        justify-content: center;
+        align-items: center;
+        width:45px;
+        height: 40px;
+        background:transparent;
+        border:2px solid whitesmoke;
+        border-radius: 5px;
+        text-decoration: none;
+        transform: rotate(45deg);
+        border:transparent;
+       }
+       .social a i{
+        font-size:larger;
+        color:aqua;
+        transform: rotate(-45deg);
+       }
+       .social a:hover{
+        border:2px solid white;
+       }
+       .home{
+        position:relative;
+        width:100%;
+        height:100vh;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:50px 8% 0;
+        overflow:hidden;
+       }
+
+       .home-content h1{
+        font-size: 50px;
+        line-height:1.2;
+        color:#0ef
+       }
+       .home-content h3{
+        font-size: 30px;
+        color:#0ef
+       }
+       .home-content p{
+        color:#0ef
+       }
+       .btn{
+        margin-left: 40%;
+        display:inline-block;
+        padding:10px 28px;
+        background:transparent;
+        border:2px solid white;
+        border-radius: 6px;
+        box-shadow: 0 0 10px;
+        font-size:16px;
+        color:aliceblue;
+        letter-spacing: 1px;
+        text-decoration: none;
+        font-weight: 600;
+        transition:0.5s;
+       }
+       .btn:hover{
+        background:burlywood;
+        color:#0ef
+       }
+       .home-img{
+        position:relative;
+        right:-7px;
+        width:450px;
+        height:450px;
+        transform:rotate(45deg)
+       }
+       .home-img .rhombus{
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:black;
+        border: 25px solid #0ef;
+        overflow:hidden
+       }
+       .home-img .rhombus img{
+        position:absolute;
+        max-width: 500px;
+        transform:rotate(-45deg);
+       }
+       .home .rhombus2{
+        position:absolute;
+        width:700px;
+        height:700px;
+        background: #0ef;
+        transform:rotate(45deg);
+        top:-30%;
+        right:-30%;
+        z-index: -1;
+
+       }
+       .bt{
+        display:inline-flex;
+        margin-left: 20%;
+       }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Cars</a>
+        <nav class="navbar">
+               <a href="#">Home</a>
+               <a href="search bus.html">search</a>
+               <a href="cancel tkt.html">cancel tkt</a>
+               <a href="book tkt.html">book tkt</a>
+               <a href="contact.html">Contact</a>
+               <a href="loginpage.html">log out</a>
+               <a href="javascript:window.history.back()">← Back</a>
+        </nav>
+        <div class="social">
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-facebook' ></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+        </div>
+    </header>
+    <h1>Seat Layout</h1>
+    <div id="seat-layout"></div><br>
+    <div class="bt">
+    <button onclick="confirmBooking()" class="btn">Confirm Booking</button><button class="btn" onclick="downloadTicket()">Download Tkt</button>
+</div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const busId = urlParams.get('busId');
+        const date = urlParams.get('date');
+        const email = urlParams.get('email');
+        let selectedSeats = [];
+
+        async function fetchBookedSeats() {
+            const res = await fetch(`http://localhost:500/booked-seats?busId=${busId}&date=${date}`);
+            const data = await res.json();
+            return data.bookedSeats; // Array of seat numbers
+        }
+
+        function generateSeatsLayout(bookedSeats) {
+    const seatLayout = document.getElementById("seat-layout");
+    seatLayout.innerHTML = "";
+
+    const totalSeats = 28;
+    let seatNumber = 1;
+
+    for (let row = 0; seatNumber <= totalSeats; row++) {
+        const rowDiv = document.createElement("div");
+        rowDiv.classList.add("row");
+
+        // Left side (2 seats)
+        for (let i = 0; i < 2; i++) {
+            if (seatNumber > totalSeats) break;
+
+            const seat = createSeatElement(seatNumber, bookedSeats);
+            rowDiv.appendChild(seat);
+            seatNumber++;
+        }
+
+        // Aisle gap
+        const aisleGap = document.createElement("div");
+        aisleGap.classList.add("aisle-gap");
+        rowDiv.appendChild(aisleGap);
+
+        // Right side (2 seats)
+        for (let i = 0; i < 2; i++) {
+            if (seatNumber > totalSeats) break;
+
+            const seat = createSeatElement(seatNumber, bookedSeats);
+            rowDiv.appendChild(seat);
+            seatNumber++;
+        }
+
+        seatLayout.appendChild(rowDiv);
+    }
+}
+
+function createSeatElement(number, bookedSeats) {
+    const seat = document.createElement("div");
+    seat.classList.add("seat");
+    seat.textContent = number;
+    seat.setAttribute("data-seat", number);
+
+    if (bookedSeats.includes(number.toString())) {
+        seat.classList.add("booked");
+    } else {
+        seat.addEventListener("click", () => {
+            if (seat.classList.contains("selected")) {
+                seat.classList.remove("selected");
+                selectedSeats = selectedSeats.filter(s => s !== number);
+            } else {
+                seat.classList.add("selected");
+                selectedSeats.push(number);
+            }
+        });
+    }
+
+    return seat;
+}
+
+
+
+        async function confirmBooking() {
+            if (selectedSeats.length === 0) {
+                alert("Please select at least one seat.");
+                return;
+            }
+
+            const res = await fetch("http://localhost:500/book-seat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    busId: busId,
+                    date: date,
+                    seats: selectedSeats,
+                    email: email
+                })
+            });
+
+            const result = await res.json();
+            if (res.ok) {
+                alert("Booking confirmed! booking details are sent to u by mail");
+        
+                window.location.reload();
+            } else {
+                alert(result.message || "Error booking seats.");
+            }
+        }
+
+        // On load
+        (async () => {
+            const bookedSeats = await fetchBookedSeats();
+            generateSeatsLayout(bookedSeats);
+        })();
+    </script>
+    <script>
+        function downloadTicket() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const busId = urlParams.get('busId');
+            const date = urlParams.get('date');
+            const email = urlParams.get('email');
+    
+            window.location.href = `bill.html?email=${email}&busId=${busId}&date=${date}`;
+        }
+    </script>
+</body>
+</html>

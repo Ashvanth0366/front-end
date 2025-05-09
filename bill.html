@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ticket Confirmation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:black;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .ticket {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      padding: 30px 40px;
+      width: 420px;
+      max-width: 90%;
+      text-align: left;
+      transition: 0.3s;
+    }
+
+    .ticket h2 {
+      margin-bottom: 25px;
+      color: #0072ff;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .ticket p {
+      font-size: 16px;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .ticket p strong {
+      color: #555;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 24px;
+      background-color: #0072ff;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #005ecb;
+    }
+
+    @media print {
+      body {
+        background: none;
+      }
+
+      button {
+        display: none;
+      }
+
+      .ticket {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+    }
+  </style>
+</head>
+<body bgcolor="black">
+  <div class="ticket" id="ticketContent">
+    <h2>MAR Transport - Ticket</h2>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Bus ID:</strong> <span id="busId"></span></p>
+    <p><strong>Seat No:</strong> <span id="seatNo"></span></p>
+    <p><strong>Date:</strong> <span id="date"></span></p>
+    <p><strong>From:</strong> <span id="from"></span></p>
+    <p><strong>To:</strong> <span id="to"></span></p>
+    <p><strong>Time:</strong> <span id="time">06:00 PM</span></p>
+    <p><strong>Price:</strong> ₹<span id="price"></span></p>
+  </div>
+
+  <button onclick="window.print()">Download Ticket (PDF)</button>
+  <a href="navbar.html">Home</a>
+
+  <script>
+    async function fetchTicketDetails() {
+      try {
+        const res = await fetch('/get-latest-ticket');
+        const data = await res.json();
+  
+        if (res.ok) {
+          document.getElementById("name").innerText = data.name || "-";
+          document.getElementById("email").innerText = data.email || "-";
+          document.getElementById("busId").innerText = data.busId || "-";
+          document.getElementById("seatNo").innerText = data.seatNo || "-";
+          document.getElementById("date").innerText = data.date || "-";
+          document.getElementById("from").innerText = data.from || "-";
+          document.getElementById("to").innerText = data.to || "-";
+          document.getElementById("price").innerText = data.price || "-";
+        } else {
+          alert(data.message || "Failed to load ticket details");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while loading ticket details");
+      }
+    }
+
+    fetchTicketDetails();
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket Booking</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+         *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-family:'poppins',san-serif;
+        }
+        body{
+            background:black;
+        }
+        header{
+            top:0px;
+            left:0px;
+            width:100%;
+            padding:30px 8%;
+            background: transparent;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            z-index:100;
+        }
+       .logo{
+        font-size: 25px;
+        color:#0ef;
+        text-decoration: none;
+        font-weight: 600;
+       } 
+       .navbar a{
+               display:inline-flex;
+               justify-content: center;
+               align-items: center;
+               background:black;
+               border:3px solid white;
+               width:75px;
+               border-radius: 4px;
+               color:#0ef;
+               text-decoration: none;
+               font-weight: 500;
+               margin:0 20px;
+               box-shadow:1px 1px 10px #0ef;
+       }
+       .navbar a:hover{
+        color:burlywood;
+        border:3px solid #0ef;
+        border-radius: 4px;;
+       }
+       .social{
+        width:150px;
+        height:40px;
+       }
+       .social a{
+        display:inline-flex;
+        justify-content: center;
+        align-items: center;
+        width:45px;
+        height: 40px;
+        background:transparent;
+        border:2px solid whitesmoke;
+        border-radius: 5px;
+        text-decoration: none;
+        transform: rotate(45deg);
+        border:transparent;
+       }
+       .social a i{
+        font-size:larger;
+        color:aqua;
+        transform: rotate(-45deg);
+       }
+       .social a:hover{
+        border:2px solid white;
+       }
+       .container{ 
+              margin-top:10%;
+              margin-left: 35%;
+              margin-right: 35%;
+              margin-bottom: 5%;
+        background-color: #2c2c2c;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px aqua;
+            width: 500px;
+        }
+            .container h2{
+                color:#0ef;
+              text-align: center;
+            }
+            label {
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+            color:#0ef;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #3b3b3b;
+            color: aqua;
+            font-size: 16px;
+        }
+        select{
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #3b3b3b;
+            color: aqua;
+            font-size: 16px;
+        }
+        .btn{
+        display:inline-block;
+        padding:10px 28px;
+        background:transparent;
+        border:2px solid white;
+        border-radius: 6px;
+        box-shadow: 0 0 10px;
+        font-size:16px;
+        color:aliceblue;
+        letter-spacing: 1px;
+        text-decoration: none;
+        font-weight: 600;
+        transition:0.5s;
+       }
+       .btn:hover{
+        background:burlywood;
+        color:#0ef
+       }
+      .container button{
+                  margin-left:150px;
+       }
+
+    </style>
+    <script>
+        function addPassengerFields() {
+            let numPassengers = document.getElementById("passengers").value;
+            let passengerDetails = document.getElementById("passenger-details");
+            passengerDetails.innerHTML = "";
+
+            for (let i = 1; i <= numPassengers; i++) {
+                passengerDetails.innerHTML += `
+                    <h2>Passenger ${i}</h2>
+                    <label for="name${i}">Name:</label>
+                    <input type="text" id="name${i}" name="name${i}" required>
+
+                    <label for="age${i}">Age:</label>
+                    <input type="number" id="age${i}" name="age${i}" min="1" required>
+
+                    <label for="sex${i}">Sex:</label>
+                    <select id="sex${i}" name="sex${i}">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                `;
+            }
+        }
+    </script>
+    </head>
+    <body>
+        <header class="header">
+            <a href="#" class="logo">BUS</a>
+            <nav class="navbar">
+                   <a href="navbar.html">Home</a>
+                   <a href="search bus.html">search</a>
+                   <a href="cancel tkt.html">cancel tkt</a>
+                   <a href="#">book tkt</a>
+                   <a href="contact.html">Contact</a>
+                   <a href="loginpage.html">log out</a>
+                   <a href="javascript:window.history.back()">← Back</a>
+            </nav>
+            <div class="social">
+                <a href="#"><i class='bx bxl-twitter'></i></a>
+                <a href="#"><i class='bx bxl-facebook' ></i></a>
+                <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+            </div>
+        </header>
+        <div class="container">
+            <h2>Bus Ticket Booking</h2>
+            <form id="booking-form" onsubmit="fetchBusData(event),submitBooking(event)">
+                <label for="from">From:</label>
+<select id="from" name="from" required>
+  <option value="">-- Select Source --</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Bangalore">Bangalore</option>
+</select>
+
+<label for="to">To:</label>
+<select id="to" name="to" required>
+  <option value="">-- Select Destination --</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Bangalore">Bangalore</option>
+</select>
+                <label for="date">Date of Journey:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="email">email:</label>
+                <input type="text" id="email" name="email" required>
+              
+                <label for="passengers">Number of Passengers:</label>
+                <select id="passengers" name="passengers" onclick="addPassengerFields()" required>
+                <option value="1">1</option>
+                </select>
+
+                <label for="seat">Seat Type:</label>
+                <select id="seat" name="seat">
+                    <option value="Sleeper">Sleeper</option>
+                </select>
+    
+                <div id="passenger-details"></div>
+    
+                <button class="btn" type="submit">NEXT</button>
+            </form>
+            <div id="bus-results"></div>
+        </div>
+        <script>
+            async function fetchBusData(event) {
+                event.preventDefault();
+                const from = document.getElementById("from").value.trim();
+                const to = document.getElementById("to").value.trim();
+                const date = document.getElementById("date").value;
+                const email=document.getElementById("email").value.trim();
+                if (!from || !to || !date || !email) {
+                    alert("Please enter all details!");
+                    return;
+                }
+            
+                try {
+                    const response = await fetch("data-1.json"); 
+                    const buses = await response.json();
+            
+                    // Filter available buses based on user input
+                    const availableBuses = buses.filter(bus => 
+                        bus.from.toLowerCase() === from.toLowerCase() &&
+                        bus.to.toLowerCase() === to.toLowerCase() &&
+                        bus.date === date
+                    );
+            
+                    // Display bus details
+                    displayBuses(availableBuses,email);
+            
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            }
+            
+            function displayBuses(buses,email) {
+                const resultContainer = document.getElementById("bus-results");
+                resultContainer.innerHTML = ""; // Clear previous results
+            
+                if (buses.length === 0) {
+                    resultContainer.innerHTML = "<p style='color:white;'>No buses available for this route.</p>";
+                    return;
+                }
+            
+                buses.forEach(bus => {
+                    let busInfo = `
+                        <div style="border:1px solid aqua; padding:10px; margin:10px; background:#2c2c2c; color:white; border-radius:5px;">
+                            <h3 style="color:#0ef;">${bus.busName}</h3>
+                            <p><strong>Departure:</strong> ${bus.departure} | <strong>Arrival:</strong> ${bus.arrival}</p>
+                            <p><strong>Seat Type:</strong> ${bus.seatType} | <strong>Fare:</strong> ₹${bus.price}</p>
+                            <button class="btn" onclick="window.location.href='sleeper.html?busId=${bus.busId}&date=${bus.date}&email=${encodeURIComponent(email)}'">Show Layout</button>
+                        </div>
+                    `;
+                    resultContainer.innerHTML += busInfo;
+                });
+            }
+            async function submitBooking(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    const formData = {
+        from: document.getElementById("from").value.trim(),
+        to: document.getElementById("to").value.trim(),
+        date: document.getElementById("date").value,
+        passengers: document.getElementById("passengers").value,
+        seatType: document.getElementById("seat").value,
+        email: document.getElementById("email").value.trim(),
+        passengerDetails: []
+    };
+
+    for (let i = 1; i <= formData.passengers; i++) {
+        formData.passengerDetails.push({
+            name: document.getElementById(`name${i}`).value,
+            age: document.getElementById(`age${i}`).value,
+            sex: document.getElementById(`sex${i}`).value
+        });
+    }
+
+    try {
+        const response = await fetch("http://localhost:500/book", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message);
+        } else {
+            alert("Booking failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+            </script>
+<script>
+    let inactivityTimeout;
+    const INACTIVITY_LIMIT = 5 * 60 * 1000;
+
+    function autoLogout() {
+        alert("You have been inactive for 5 minutes. You will now be disconnected.");
+        window.location.href = "loginpage.html"; // Or redirect to homepage or logout page
+    }
+
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(autoLogout, INACTIVITY_LIMIT);
+    }
+
+    window.onload = resetInactivityTimer;
+    document.onmousemove = resetInactivityTimer;
+    document.onkeydown = resetInactivityTimer;
+    document.onclick = resetInactivityTimer;
+    document.onscroll = resetInactivityTimer;
+    document.ontouchstart = resetInactivityTimer;
+</script>
+
+</body>
+</html>
+
+    </body>
+</html>
